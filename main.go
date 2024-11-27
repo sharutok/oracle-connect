@@ -31,7 +31,7 @@ func main() {
 	app.Use(logger.New())
 	app.Use(cors.New())
 	app.Use(cors.New(cors.Config{
-		AllowHeaders: "POST",
+		AllowMethods: "GET,POST",
 	}))
 
 	app.Use(basicauth.New(basicauth.Config{
@@ -40,6 +40,11 @@ func main() {
 		},
 	}))
 	app.Post("/query-execute", QueryExecute)
+	app.Get("/health-check", func(c *fiber.Ctx) error {
+		return c.Status(200).JSON(&fiber.Map{
+			"response": "All Ok",
+		})
+	})
 
 	log.Fatal(app.Listen(":7777"))
 	defer CloseDB()
