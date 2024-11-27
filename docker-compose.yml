@@ -8,5 +8,4 @@ services:
     ports:
       - "7777:7777"
     container_name: golang-app
-    network_mode: host
     restart: always
