@@ -23,10 +23,6 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	// var cred Cred
-	// cred.Username = os.Getenv("APP_USERNAME")
-	// cred.Password = os.Getenv("APP_PASSWORD")
-
 	app := fiber.New()
 	app.Use(logger.New())
 	app.Use(cors.New())
@@ -36,7 +32,6 @@ func main() {
 
 	app.Use(func(c *fiber.Ctx) error {
 		authHeader := c.Get("Authorization")
-		log.Println((authHeader[7:]), os.Getenv("APP_PASSWORD"), len(authHeader[7:]), len(os.Getenv("APP_PASSWORD")), authHeader[7:] == os.Getenv("APP_PASSWORD"), authHeader[:7] == "Bearer ")
 		if authHeader[7:] == os.Getenv("APP_PASSWORD") && authHeader[:7] == "Bearer " {
 			token := authHeader[7:]
 			fmt.Println("Bearer Token:", token)
