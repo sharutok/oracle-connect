@@ -2,10 +2,9 @@ version: "3.8"
 
 services:
   app:
+    network_mode: "host"
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "7777:7777"
     container_name: golang-app
     restart: always
